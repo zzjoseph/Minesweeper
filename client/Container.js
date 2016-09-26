@@ -17,8 +17,26 @@ class Container extends React.Component {
 		this.game = new Minesweeper(9, 9, 10);
 		this.state = { gameState: READY};
 	}
+	changeLevel(e) {
+		let level = e.target.value;
+		if(level == "beginner") {
+			this.game = new Minesweeper(9, 9, 10);
+		} else if(level == "intermediate") {
+			this.game = new Minesweeper(16, 16, 40);
+		} else {
+			this.game = new Minesweeper(16, 30, 99);
+		}
+		this.setState({ gameState: READY});
+	}
 	newGame() {
-		this.game = new Minesweeper(9, 9, 10);
+		let level = document.getElementById("level").value;
+		if(level == "beginner") {
+			this.game = new Minesweeper(9, 9, 10);
+		} else if(level == "intermediate") {
+			this.game = new Minesweeper(16, 16, 40);
+		} else {
+			this.game = new Minesweeper(16, 30, 99);
+		}
 		this.setState({gameState: READY});
 	}
 	handleClick(c) {
@@ -53,6 +71,11 @@ class Container extends React.Component {
 		}, this);
 		return (
 			<div>
+				<select id="level" onChange={this.changeLevel.bind(this)} defaultValue="beginner">
+					<option value="beginner">Beginner</option>
+					<option value="intermediate">Intermediate</option>
+					<option value="expert">Expert</option>
+				</select>
 			  <p>State: {state}</p>
 				<button onClick={this.newGame.bind(this)}>new game</button>
 				<table>

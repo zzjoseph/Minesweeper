@@ -21522,9 +21522,29 @@
 		}
 
 		_createClass(Container, [{
+			key: 'changeLevel',
+			value: function changeLevel(e) {
+				var level = e.target.value;
+				if (level == "beginner") {
+					this.game = new _game2.default(9, 9, 10);
+				} else if (level == "intermediate") {
+					this.game = new _game2.default(16, 16, 40);
+				} else {
+					this.game = new _game2.default(16, 30, 99);
+				}
+				this.setState({ gameState: READY });
+			}
+		}, {
 			key: 'newGame',
 			value: function newGame() {
-				this.game = new _game2.default(9, 9, 10);
+				var level = document.getElementById("level").value;
+				if (level == "beginner") {
+					this.game = new _game2.default(9, 9, 10);
+				} else if (level == "intermediate") {
+					this.game = new _game2.default(16, 16, 40);
+				} else {
+					this.game = new _game2.default(16, 30, 99);
+				}
 				this.setState({ gameState: READY });
 			}
 		}, {
@@ -21533,6 +21553,7 @@
 				if (this.state.gameState == READY) this.game.setup(c);
 				this.game.click(c);
 				this.setState({ gameState: this.game._state });
+				console.log(this.game._state);
 				// this.game._printView();
 			}
 		}, {
@@ -21544,22 +21565,6 @@
 				}
 				// this.game._printView();
 			}
-			// aiPlay() {
-			// 	this.newGame();
-			// 	var solver = new Solver(this.handleClick.bind(this), this.handleFlag.bind(this), this.newGame.bind(this));
-			// 	var minesRemain = 10;
-			// 	// var view = this.game._view;
-			// 	this.handleClick(new Coordinate(0, 0));
-			// 	console.log(view);
-			// 	// if(this.game._state == RUNNING) {
-			// 	// 	minesRemain = solver.simplePlay(this.game, minesRemain);
-			// 	// 	console.log(minesRemain);
-			// 		// if(minesRemain > 0) {
-			// 		// 	minesRemain = solver.complexPlay(this.game, minesRemain);
-			// 		// }
-			// 	// }
-			// }
-
 		}, {
 			key: 'render',
 			value: function render() {
@@ -21578,6 +21583,25 @@
 				return _react2.default.createElement(
 					'div',
 					null,
+					_react2.default.createElement(
+						'select',
+						{ id: 'level', onChange: this.changeLevel.bind(this), defaultValue: 'beginner' },
+						_react2.default.createElement(
+							'option',
+							{ value: 'beginner' },
+							'Beginner'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'intermediate' },
+							'Intermediate'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'expert' },
+							'Expert'
+						)
+					),
 					_react2.default.createElement(
 						'p',
 						null,
