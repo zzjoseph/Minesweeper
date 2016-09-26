@@ -21684,8 +21684,8 @@
 
 	  this.flag = function (c) {
 	    if (this._state != RUNNING && this._state != READY) return;
-	    this._unopenedCount--;
 	    if (this._view.get(c) == UNOPENED) {
+	      this._unopenedCount--;
 	      this._view.set(c, FLAG);
 	      if (this._board.get(c) == MINE) this._remainMines--;
 	      if (this._remainMines == 0 && this._unopenedCount == 0) this._state = WIN;
@@ -21694,6 +21694,8 @@
 	      this._unopenedCount++;
 	      if (this._board.get(c) == MINE) this._remainMines++;
 	    }
+	    console.log("unopened count: ", this._unopenedCount);
+	    console.log("remaining mines: ", this._remainMines);
 	  };
 
 	  this.randomCoord = function (candidates) {
